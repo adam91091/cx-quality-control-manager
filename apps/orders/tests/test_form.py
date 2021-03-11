@@ -3,11 +3,13 @@ import datetime
 from django.test import TestCase
 
 from apps.clients.tests.factories import ClientFactory
+from apps.constants import ORDER_SAP_DIGITS
 from apps.orders.models import Measurement
 from apps.orders.tests.factories import OrderFactory, MeasurementReportFactory, MeasurementFactory
 from apps.products.tests.factories import ProductFactory
 
 from apps.orders.forms import OrderForm, MeasurementReportForm, MeasurementForm
+from apps.unittest_helpers import get_random_int_with_digit_count
 
 
 class OrderFormTest(TestCase):
@@ -16,18 +18,20 @@ class OrderFormTest(TestCase):
         self.product = ProductFactory.create()
         self.order = OrderFactory.create(product=self.product, client=self.client)
 
-        self.form_data = {'order_sap_id': 99989999, 'client': self.client.client_sap_id,
+        self.form_data = {'order_sap_id': get_random_int_with_digit_count(ORDER_SAP_DIGITS),
+                          'client': self.client.client_sap_id,
                           'product': self.product.product_sap_id, 'date_of_production': '5896-12-12',
                           'status': 'Ready', 'quantity': 10, 'internal_diameter_reference': 1.7,
                           'external_diameter_reference': 1.2, 'length': 42.3}
 
     def test_form_sap_id_validation_positive(self):
-        self.form_data['order_sap_id'] = '76655432'
+        self.form_data['order_sap_id'] = str(get_random_int_with_digit_count(ORDER_SAP_DIGITS))
         order_form = OrderForm(data=self.form_data, instance=self.order)
         self.assertTrue(order_form.is_valid())
 
     def test_form_sap_id_validation_negative(self):
-        data = ['234', 'test', '14467']
+        data = [str(get_random_int_with_digit_count(ORDER_SAP_DIGITS - 1)),
+                str(get_random_int_with_digit_count(ORDER_SAP_DIGITS + 1)), 'test']
         for value in data:
             self.form_data['order_sap_id'] = value
             order_form = OrderForm(data=self.form_data, instance=self.order)

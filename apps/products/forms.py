@@ -2,7 +2,8 @@ from betterforms.multiform import MultiModelForm
 from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
 
-from apps.form_styles import NUM_STYLE, INT_STYLE, BASIC_REQ_STYLE, BASIC_STYLE, BASIC_NO_HINTS_STYLE, SAP_STYLE
+from apps.form_styles import NUM_STYLE, INT_STYLE, BASIC_REQ_STYLE, BASIC_STYLE, BASIC_NO_HINTS_STYLE, \
+    PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE
 from apps.products.models import Product, Specification
 from apps.user_texts import HINTS, LABELS, ERROR_MSG
 
@@ -20,7 +21,7 @@ class ProductForm(forms.ModelForm):
         labels = LABELS['product']
 
         widgets = {
-            'product_sap_id': forms.TextInput(attrs=SAP_STYLE),
+            'product_sap_id': forms.TextInput(attrs=PRODUCT_SAP_STYLE),
             'index': forms.TextInput(attrs=BASIC_STYLE),
             'description': forms.TextInput(attrs=BASIC_REQ_STYLE)
         }
@@ -82,7 +83,7 @@ class SpecificationIssueForm(forms.Form):
     validation_hints = {'client_sap_id': HINTS['client']['client_sap_id'],
                         'date_of_issue': HINTS['order']['date_of_production'], }
 
-    client_sap_id = forms.CharField(widget=forms.TextInput(attrs=SAP_STYLE), label='Numer SAP klienta')
+    client_sap_id = forms.CharField(widget=forms.TextInput(attrs=CLIENT_SAP_STYLE), label='Numer SAP klienta')
     date_of_issue = forms.DateField(widget=DatePickerInput(options={'showClear': False, 'locale': 'pl', },
                                     attrs={**BASIC_STYLE, },
                                     format='%Y-%m-%d'), label='Data wystawienia specyfikacji')

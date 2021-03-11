@@ -5,8 +5,8 @@ from django.test import TestCase, Client as ViewClient
 from apps.products.forms import ProductSpecificationMultiForm
 from apps.products.models import Product, Specification
 from apps.products.tests.factories import ProductFactory, SpecificationFactory
-from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE
-from apps.unittest_helpers import assert_response_post, assert_response_get
+from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE, PRODUCT_SAP_DIGITS
+from apps.unittest_helpers import assert_response_post, assert_response_get, get_random_int_with_digit_count
 from apps.users.tests import PASSWORD
 from apps.users.tests.factories import CxUserFactory
 
@@ -19,8 +19,7 @@ class ProductsViewTest(TestCase):
         cls.specifications = [SpecificationFactory.create(product=product) for product in cls.products]
         cls.product_to_be_deleted = cls.products[0]
         cls.product_to_be_updated = cls.products[1]
-
-        cls.form_data = {'product-product_sap_id': 9993999,
+        cls.form_data = {'product-product_sap_id': get_random_int_with_digit_count(PRODUCT_SAP_DIGITS),
                          'product-description': "product-product_form_data", 'product-index': ""}
         for field in Specification._meta.get_fields():
             if field.name != 'product':

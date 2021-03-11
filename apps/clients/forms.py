@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Client
-from ..form_styles import SAP_STYLE, BASIC_REQ_STYLE
+from ..form_styles import CLIENT_SAP_STYLE, BASIC_REQ_STYLE
 from ..user_texts import ERROR_MSG, LABELS, HINTS
 
 
@@ -18,7 +18,7 @@ class ClientForm(forms.ModelForm):
         labels = LABELS['client']
 
         widgets = {
-            'client_sap_id': forms.TextInput(attrs=SAP_STYLE),
+            'client_sap_id': forms.TextInput(attrs=CLIENT_SAP_STYLE),
             'client_name': forms.TextInput(attrs=BASIC_REQ_STYLE),
         }
 

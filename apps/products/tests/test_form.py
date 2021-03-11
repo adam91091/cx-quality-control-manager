@@ -1,8 +1,10 @@
 from django.test import TestCase
 
+from apps.constants import PRODUCT_SAP_DIGITS
 from apps.products.forms import ProductForm, SpecificationForm
 from apps.products.models import Specification
 from apps.products.tests.factories import ProductFactory, SpecificationFactory
+from apps.unittest_helpers import get_random_int_with_digit_count
 
 
 class ProductFormTest(TestCase):
@@ -10,7 +12,8 @@ class ProductFormTest(TestCase):
         self.product = ProductFactory.create()
         self.spec = SpecificationFactory.create(product=self.product)
 
-        self.product_form = {'product_sap_id': '1234563', 'description': "Product new", 'index': ""}
+        self.product_form = {'product_sap_id': str(get_random_int_with_digit_count(PRODUCT_SAP_DIGITS)),
+                             'description': "Product new", 'index': ""}
         self.spec_form = {}
         for field in Specification._meta.get_fields():
             if field.name != 'product':
@@ -20,12 +23,13 @@ class ProductFormTest(TestCase):
         self.spec_form['pallet_wrapped_with_stretch_film'] = 'Y'
 
     def test_form_sap_id_validation_positive(self):
-        self.product_form['product_sap_id'] = '7654332'
+        self.product_form['product_sap_id'] = str(get_random_int_with_digit_count(PRODUCT_SAP_DIGITS))
         product_form = ProductForm(data=self.product_form, instance=self.product)
         self.assertTrue(product_form.is_valid())
 
     def test_form_sap_id_validation_negative(self):
-        data = ['234', 'test', '14467']
+        data = [str(get_random_int_with_digit_count(PRODUCT_SAP_DIGITS - 1)),
+                str(get_random_int_with_digit_count(PRODUCT_SAP_DIGITS + 1)), 'test']
         for value in data:
             self.product_form['product_sap_id'] = value
             product_form = ProductForm(data=self.product_form, instance=self.product)

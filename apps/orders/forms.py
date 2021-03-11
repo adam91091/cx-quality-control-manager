@@ -4,9 +4,9 @@ from django.forms.models import inlineformset_factory, BaseInlineFormSet
 
 from bootstrap_datepicker_plus import DatePickerInput
 
-from apps.form_styles import SAP_STYLE, NUM_STYLE_NO_REQ, BASIC_NO_HINTS_STYLE, INPUT_MEASUREMENT_FORM_STYLE_50px, \
+from apps.form_styles import NUM_STYLE_NO_REQ, BASIC_NO_HINTS_STYLE, INPUT_MEASUREMENT_FORM_STYLE_50px, \
     INPUT_MEASUREMENT_FORM_STYLE_70px, INPUT_MEASUREMENT_FORM_STYLE_71px, ORDER_SAP_STYLE, NUM_STYLE, BASIC_REQ_STYLE, \
-    INT_STYLE, PALLET_NUMBER_STYLE
+    INT_STYLE, PALLET_NUMBER_STYLE, PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE
 from apps.orders.models import Order, MeasurementReport, Measurement
 from apps.user_texts import HINTS, LABELS, ERROR_MSG, FORMSET_MSG
 from cx_quality_control.settings import LANGUAGE_CODE
@@ -28,8 +28,8 @@ class OrderForm(ModelForm):
             'order_sap_id': forms.TextInput(attrs=ORDER_SAP_STYLE),
             'date_of_production': DatePickerInput(options={'showClear': False, 'locale': LANGUAGE_CODE, },
                                                   attrs=BASIC_REQ_STYLE),
-            'product': forms.TextInput(attrs=SAP_STYLE),
-            'client': forms.TextInput(attrs=SAP_STYLE),
+            'product': forms.TextInput(attrs=PRODUCT_SAP_STYLE),
+            'client': forms.TextInput(attrs=CLIENT_SAP_STYLE),
             'internal_diameter_reference': forms.TextInput(attrs=NUM_STYLE_NO_REQ),
             'external_diameter_reference': forms.TextInput(attrs=NUM_STYLE_NO_REQ),
             'length': forms.TextInput(attrs=NUM_STYLE_NO_REQ),

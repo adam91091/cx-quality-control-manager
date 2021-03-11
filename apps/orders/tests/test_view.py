@@ -8,8 +8,8 @@ from apps.orders.models import Order
 from apps.orders.tests.factories import OrderFactory, MeasurementFactory, MeasurementReportFactory, \
     MeasurementReportPostDictProvider, MeasurementsPostDictProvider, OrderPostDictProvider
 from apps.products.tests.factories import ProductFactory
-from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE
-from apps.unittest_helpers import assert_response_post, assert_response_get
+from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE, ORDER_SAP_DIGITS
+from apps.unittest_helpers import assert_response_post, assert_response_get, get_random_int_with_digit_count
 from apps.users.tests import PASSWORD
 from apps.users.tests.factories import CxUserFactory
 
@@ -28,7 +28,8 @@ class OrdersViewTest(TestCase):
 
         cls.client_sap_id_form_data = cls.clients[-1].client_sap_id
         cls.product_sap_id_form_data = cls.products[-1].product_sap_id
-        cls.form_data = {'order_sap_id': 99996599, 'client': cls.client_sap_id_form_data,
+        cls.form_data = {'order_sap_id': get_random_int_with_digit_count(ORDER_SAP_DIGITS),
+                         'client': cls.client_sap_id_form_data,
                          'product': cls.product_sap_id_form_data, 'date_of_production': '5896-12-12',
                          'status': 'Ready', 'quantity': 10, 'internal_diameter_reference': 1.7,
                          'external_diameter_reference': 1.2, 'length': 42.3}
