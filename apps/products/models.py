@@ -39,15 +39,12 @@ class Specification(models.Model):
     external_diameter_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     wall_thickness_target = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     length_target = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     flat_crush_resistance_target = models.IntegerField(validators=[validate_int_field(), ])
-    flat_crush_resistance_tolerance_top = models.IntegerField(validators=[validate_int_field(), ])
     flat_crush_resistance_tolerance_bottom = models.IntegerField(validators=[validate_int_field(), ])
 
     moisture_content_target = models.IntegerField(validators=[validate_int_field(), ])
@@ -90,15 +87,12 @@ class SpecificationIssued(models.Model):
     external_diameter_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     wall_thickness_target = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     length_target = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     flat_crush_resistance_target = models.IntegerField(validators=[validate_int_field(), ])
-    flat_crush_resistance_tolerance_top = models.IntegerField(validators=[validate_int_field(), ])
     flat_crush_resistance_tolerance_bottom = models.IntegerField(validators=[validate_int_field(), ])
 
     moisture_content_target = models.IntegerField(validators=[validate_int_field(), ])

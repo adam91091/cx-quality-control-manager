@@ -27,15 +27,12 @@ class SpecificationFactory(factory.DjangoModelFactory):
     external_diameter_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
 
     wall_thickness_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
-    wall_thickness_tolerance_top = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
-    wall_thickness_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
 
     length_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
     length_tolerance_top = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
     length_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
 
     flat_crush_resistance_target = factory.Sequence(lambda n: INT_DEFAULT + n)
-    flat_crush_resistance_tolerance_top = factory.Sequence(lambda n: INT_DEFAULT + n)
     flat_crush_resistance_tolerance_bottom = factory.Sequence(lambda n: INT_DEFAULT + n)
 
     moisture_content_target = factory.Sequence(lambda n: INT_DEFAULT + n)
