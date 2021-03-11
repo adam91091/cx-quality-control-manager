@@ -37,21 +37,6 @@ class OrderFormTest(TestCase):
             order_form = OrderForm(data=self.form_data, instance=self.order)
             self.assertFalse(order_form.is_valid(), msg=f"Value: {value}")
 
-    def test_form_numeric_field_validation_positive(self):
-        data = ['1', '0.3', '12.323223', '.2']
-        for value in data:
-            self.form_data['internal_diameter_reference'] = value
-            order_form = OrderForm(data=self.form_data, instance=self.order)
-            print(order_form.errors)
-            self.assertTrue(order_form.is_valid(), msg=f"Value: {value}")
-
-    def test_form_numeric_field_validation_negative(self):
-        data = ['test', '-1']
-        for value in data:
-            self.form_data['external_diameter_reference'] = value
-            order_form = OrderForm(data=self.form_data, instance=self.order)
-            self.assertFalse(order_form.is_valid(), msg=f"Value: {value}")
-
     def test_form_integer_field_validation_positive(self):
         value = '42'
         self.form_data['quantity'] = value

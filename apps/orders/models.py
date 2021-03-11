@@ -22,10 +22,6 @@ class Order(models.Model):
     date_of_production = models.DateField(default=datetime.date.today)
     status = models.CharField(choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0], max_length=30)
     quantity = models.IntegerField(validators=[validate_int_field(), ], null=True, blank=True)
-    # tube sizing information
-    internal_diameter_reference = models.FloatField(validators=[validate_num_field(), ], null=True, blank=True)
-    external_diameter_reference = models.FloatField(validators=[validate_num_field(), ], null=True, blank=True)
-    length = models.FloatField(validators=[validate_num_field(), ], null=True, blank=True)
 
     def __str__(self):
         return f"Production order: {self.order_sap_id} " \

@@ -17,10 +17,6 @@ class OrderFactory(factory.DjangoModelFactory):
     date_of_production = '4098-12-12'
     status = 'Started'
     quantity = factory.Sequence(lambda n: n)
-    # tube sizing information
-    internal_diameter_reference = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
-    external_diameter_reference = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
-    length = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
 
 
 class MeasurementReportFactory(factory.DjangoModelFactory):

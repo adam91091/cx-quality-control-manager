@@ -26,27 +26,14 @@
                     <p class="form-control">{{ order.date_of_production }}</p>
                 </div>
             </div>
-            <br>
-            <h5>Dane techniczne</h5>
-            <br>
             <div class="row">
-                <div class="col-sm-4 mb-2">
-                    <label>Długość:</label>
-                    <p class="form-control">{{ order.length|default_if_none:"" }}</p>
-                </div>
                 <div class="col-sm-4 mb-2">
                     <label>Ilość:</label>
                     <p class="form-control">{{ order.quantity }}</p>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-sm-4 mb-2">
-                    <label>Średnica wewnętrzna:</label>
-                    <p class="form-control">{{ order.internal_diameter_reference|default_if_none:"" }}</p>
-                </div>
-                <div class="col-sm-4 mb-2">
-                    <label>Średnica zewnętrzna:</label>
-                    <p class="form-control">{{ order.external_diameter_reference|default_if_none:"" }}</p>
+                    <label>Opis produktu:</label>
+                    <p class="form-control">{{ order.product.description }}</p>
                 </div>
             </div>
             <span>

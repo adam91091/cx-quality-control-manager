@@ -62,6 +62,10 @@ HINTS = {'client': {'client_sap_id': "Numer SAP musi się składać z {} cyfr "
                            'quantity_on_the_pallet': "Podaj całkowitą liczbę sztuk tulei na palecie", },
          'order': {'order_sap_id': "Numer partii musi się składać z {} cyfr "
                                    "oraz nie może być polem pustym".format(ORDER_SAP_DIGITS),
+                   'client_sap_id': "Numer SAP musi się składać z {} cyfr "
+                                    "oraz nie może być polem pustym".format(CLIENT_SAP_DIGITS),
+                   'product_sap_id': "Numer SAP musi się składać z {} cyfr "
+                                     "oraz nie może być polem pustym".format(PRODUCT_SAP_DIGITS),
                    'date_of_production': 'Pole z datą produkcji nie może być puste',
                    'quantity': 'Podaj całkowitą liczbę tulei w sztukach',
                    },
