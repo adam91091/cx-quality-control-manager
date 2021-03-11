@@ -9,7 +9,7 @@ class ProductFactory(factory.DjangoModelFactory):
         model = Product
 
     product_sap_id = factory.Sequence(lambda n: 10 ** (PRODUCT_SAP_DIGITS - 1) + n)
-    index = factory.Sequence(lambda n: f"test_index_{n}")
+    index = 'T123456789/12'
     description = factory.Sequence(lambda n: f"test_description_{n}")
 
 

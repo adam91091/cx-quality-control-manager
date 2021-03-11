@@ -4,7 +4,7 @@ from django.db import models
 
 from apps.clients.models import Client
 from apps.user_texts import MODEL_MSG
-from apps.validators import validate_product_sap_id, validate_num_field, validate_int_field
+from apps.validators import validate_product_sap_id, validate_num_field, validate_int_field, validate_index
 
 
 class Product(models.Model):
@@ -13,7 +13,7 @@ class Product(models.Model):
     specification data, related to quality control process.
     """
     product_sap_id = models.IntegerField(unique=True, validators=[validate_product_sap_id(), ])
-    index = models.CharField(max_length=30, null=True, blank=True)
+    index = models.CharField(max_length=30, null=True, blank=True, validators=[validate_index(), ])
     description = models.CharField(max_length=100)
 
     def __str__(self):

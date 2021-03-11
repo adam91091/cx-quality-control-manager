@@ -3,7 +3,7 @@ from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
 
 from apps.form_styles import NUM_STYLE, INT_STYLE, BASIC_REQ_STYLE, BASIC_STYLE, BASIC_NO_HINTS_STYLE, \
-    PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE
+    PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE, INDEX_STYLE
 from apps.products.models import Product, Specification
 from apps.user_texts import HINTS, LABELS, ERROR_MSG
 
@@ -22,7 +22,7 @@ class ProductForm(forms.ModelForm):
 
         widgets = {
             'product_sap_id': forms.TextInput(attrs=PRODUCT_SAP_STYLE),
-            'index': forms.TextInput(attrs=BASIC_STYLE),
+            'index': forms.TextInput(attrs=INDEX_STYLE),
             'description': forms.TextInput(attrs=BASIC_REQ_STYLE)
         }
 

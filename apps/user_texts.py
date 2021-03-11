@@ -51,6 +51,7 @@ HINTS = {'client': {'client_sap_id': "Numer SAP musi się składać z {} cyfr "
                     'client_name': "Pole z nazwą klienta nie może być puste", },
          'product': {'product_sap_id': "Numer SAP musi się składać z {} cyfr "
                                        "oraz nie może być polem pustym".format(PRODUCT_SAP_DIGITS),
+                     'index': "Indeks produktu powinien być w określonym formacie, np. T1034321/26",
                      'description': "Pole z opisem nie może być puste", },
          'specification': {'remarks': "Pole z uwagami nie może być puste",
                            'float_field': "Podaj liczbę, np. 1 lub 1.0",

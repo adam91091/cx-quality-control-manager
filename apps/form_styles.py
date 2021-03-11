@@ -26,6 +26,10 @@ PRODUCT_SAP_STYLE = {'class': 'form-control',
                      'required': 'true',
                      'pattern': REGEXPS['product']['product_sap_id'], }
 
+INDEX_STYLE = {'class': 'form-control',
+               'pattern': REGEXPS['product']['index'], }
+
+
 CLIENT_SAP_STYLE = {'class': 'form-control',
                     'required': 'true',
                     'pattern': REGEXPS['client']['client_sap_id'], }

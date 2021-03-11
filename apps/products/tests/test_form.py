@@ -35,6 +35,20 @@ class ProductFormTest(TestCase):
             product_form = ProductForm(data=self.product_form, instance=self.product)
             self.assertFalse(product_form.is_valid(), msg=f"Value: {value}")
 
+    def test_form_index_validation_positive(self):
+        data = ['R875434454/32', 'T001234322/34', '']
+        for value in data:
+            self.product_form['index'] = value
+            product_form = ProductForm(data=self.product_form, instance=self.product)
+            self.assertTrue(product_form.is_valid(), msg=f"Value: {value}")
+
+    def test_form_index_validation_negative(self):
+        data = ['R87543445/324', 'R7655674323/32', 'T001234322', 'S877543454/00', 'test', '123']
+        for value in data:
+            self.product_form['index'] = value
+            product_form = ProductForm(data=self.product_form, instance=self.product)
+            self.assertFalse(product_form.is_valid(), msg=f"Value: {value}")
+
     def test_form_numeric_field_validation_positive(self):
         data = ['1', '0.3', '12.323223', '.2']
         for value in data:
