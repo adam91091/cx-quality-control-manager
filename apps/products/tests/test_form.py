@@ -50,7 +50,7 @@ class ProductFormTest(TestCase):
             self.assertFalse(product_form.is_valid(), msg=f"Value: {value}")
 
     def test_form_numeric_field_validation_positive(self):
-        data = ['1', '0.3', '12.323223', '.2']
+        data = ['1', '0.3', '12.323223', '.2', '34,2343', ',343']
         for value in data:
             self.spec_form['internal_diameter_tolerance_top'] = value
             spec_form = SpecificationForm(data=self.spec_form, instance=self.spec)

@@ -14,7 +14,7 @@
             </div>
             <div class="col-sm-4 mb-2">
                 <label>Indeks produktu:</label>
-                <p class="form-control">{{ product.index }}</p>
+                <p class="form-control">{{ product.index|default_if_none:'' }}</p>
             </div>
             <div class="col-sm-4 mb-2">
                 <label>Opis produktu:</label>

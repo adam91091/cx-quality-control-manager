@@ -24,7 +24,7 @@
             </div>
             <div class="col-sm-4 mb-2">
                 {{ form.product.index.label_tag }}
-                {{ form.product.index }}
+                {{ form.product.index|default_if_none:'' }}
                 <div class="invalid-feedback">
                     {{ product_validation_hints|get_item:'index' }}
                 </div>

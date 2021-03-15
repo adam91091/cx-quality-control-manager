@@ -1,7 +1,10 @@
+import copy
+
 from django import forms
 
 from .models import Client
 from ..form_styles import CLIENT_SAP_STYLE, BASIC_REQ_STYLE
+from ..products.form_helpers import format_form_values
 from ..user_texts import ERROR_MSG, LABELS, HINTS
 
 
@@ -10,6 +13,12 @@ class ClientForm(forms.ModelForm):
     & hint messages for client side validation.
     """
     validation_hints: dict = HINTS['client']
+
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = Client

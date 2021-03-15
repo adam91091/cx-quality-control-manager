@@ -4,7 +4,7 @@ from django.core.validators import RegexValidator
 from apps.constants import CLIENT_SAP_DIGITS, PRODUCT_SAP_DIGITS, ORDER_SAP_DIGITS, USERNAME_LENGTH
 
 REGEXPS = {
-    'common': {'num_field': r'^([0-9]*|[0-9]*\.\d+)$',
+    'common': {'num_field': r'^([0-9]*|[0-9]*(\.|,)\d+)$',
                'int_field': r'^[0-9]*$', },
     'client': {'client_sap_id': r'^([0-9]{' + str(CLIENT_SAP_DIGITS) + '})$', },
     'product': {'product_sap_id': r'^([0-9]{' + str(PRODUCT_SAP_DIGITS) + '})$',

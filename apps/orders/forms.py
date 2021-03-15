@@ -1,3 +1,5 @@
+import copy
+
 from django import forms
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
@@ -8,6 +10,7 @@ from apps.form_styles import BASIC_NO_HINTS_STYLE, INPUT_MEASUREMENT_FORM_STYLE_
     INPUT_MEASUREMENT_FORM_STYLE_70px, INPUT_MEASUREMENT_FORM_STYLE_71px, ORDER_SAP_STYLE, NUM_STYLE, BASIC_REQ_STYLE, \
     INT_STYLE, PALLET_NUMBER_STYLE, PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE
 from apps.orders.models import Order, MeasurementReport, Measurement
+from apps.products.form_helpers import format_form_values
 from apps.user_texts import HINTS, LABELS, ERROR_MSG, FORMSET_MSG
 from cx_quality_control.settings import LANGUAGE_CODE
 
@@ -17,6 +20,12 @@ class OrderForm(ModelForm):
     & hint messages for client side validation.
     """
     validation_hints = HINTS['order']
+
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = Order
@@ -38,6 +47,12 @@ class OrderForm(ModelForm):
 
 class MeasurementReportForm(ModelForm):
     """Provide form for measurement report crud operations."""
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = MeasurementReport
         exclude = ('order', )
@@ -53,6 +68,12 @@ class MeasurementReportForm(ModelForm):
 
 class MeasurementForm(ModelForm):
     """Provide base measurement form used by measurement formset."""
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Measurement
         exclude = ('measurement_report', 'id', )

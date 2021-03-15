@@ -1,9 +1,12 @@
+import copy
+
 from betterforms.multiform import MultiModelForm
 from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
 
 from apps.form_styles import NUM_STYLE, INT_STYLE, BASIC_REQ_STYLE, BASIC_STYLE, BASIC_NO_HINTS_STYLE, \
     PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE, INDEX_STYLE
+from apps.products.form_helpers import format_form_values
 from apps.products.models import Product, Specification
 from apps.user_texts import HINTS, LABELS, ERROR_MSG
 
@@ -13,6 +16,12 @@ class ProductForm(forms.ModelForm):
     & hint messages for client side validation.
     """
     validation_hints: dict = HINTS['product']
+
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = Product
@@ -34,6 +43,12 @@ class SpecificationForm(forms.ModelForm):
     & hint messages for client side validation.
     """
     validation_hints = HINTS['specification']
+
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = Specification
