@@ -1,8 +1,12 @@
+import copy
+
 from betterforms.multiform import MultiModelForm
 from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
 
-from apps.form_styles import NUM_STYLE, INT_STYLE, BASIC_REQ_STYLE, BASIC_STYLE, BASIC_NO_HINTS_STYLE, SAP_STYLE
+from apps.form_styles import NUM_STYLE, INT_STYLE, BASIC_REQ_STYLE, BASIC_STYLE, BASIC_NO_HINTS_STYLE, \
+    PRODUCT_SAP_STYLE, CLIENT_SAP_STYLE, INDEX_STYLE
+from apps.products.form_helpers import format_form_values
 from apps.products.models import Product, Specification
 from apps.user_texts import HINTS, LABELS, ERROR_MSG
 
@@ -13,6 +17,12 @@ class ProductForm(forms.ModelForm):
     """
     validation_hints: dict = HINTS['product']
 
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Product
         exclude = ()
@@ -20,8 +30,8 @@ class ProductForm(forms.ModelForm):
         labels = LABELS['product']
 
         widgets = {
-            'product_sap_id': forms.TextInput(attrs=SAP_STYLE),
-            'index': forms.TextInput(attrs=BASIC_STYLE),
+            'product_sap_id': forms.TextInput(attrs=PRODUCT_SAP_STYLE),
+            'index': forms.TextInput(attrs=INDEX_STYLE),
             'description': forms.TextInput(attrs=BASIC_REQ_STYLE)
         }
 
@@ -33,6 +43,12 @@ class SpecificationForm(forms.ModelForm):
     & hint messages for client side validation.
     """
     validation_hints = HINTS['specification']
+
+    def __init__(self, *args, **kwargs):
+        if 'data' in kwargs and kwargs['data'] is not None:
+            data = format_form_values(copy.deepcopy(kwargs['data']))
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
 
     class Meta:
         model = Specification
@@ -48,13 +64,10 @@ class SpecificationForm(forms.ModelForm):
             'external_diameter_tolerance_top': forms.TextInput(attrs=NUM_STYLE),
             'external_diameter_tolerance_bottom': forms.TextInput(attrs=NUM_STYLE),
             'wall_thickness_target': forms.TextInput(attrs=NUM_STYLE),
-            'wall_thickness_tolerance_top': forms.TextInput(attrs=NUM_STYLE),
-            'wall_thickness_tolerance_bottom': forms.TextInput(attrs=NUM_STYLE),
             'length_target': forms.TextInput(attrs=NUM_STYLE),
             'length_tolerance_top': forms.TextInput(attrs=NUM_STYLE),
             'length_tolerance_bottom': forms.TextInput(attrs=NUM_STYLE),
             'flat_crush_resistance_target': forms.TextInput(attrs=INT_STYLE),
-            'flat_crush_resistance_tolerance_top': forms.TextInput(attrs=INT_STYLE),
             'flat_crush_resistance_tolerance_bottom': forms.TextInput(attrs=INT_STYLE),
             'moisture_content_target': forms.TextInput(attrs=INT_STYLE),
             'moisture_content_tolerance_top': forms.TextInput(attrs=INT_STYLE),
@@ -82,7 +95,7 @@ class SpecificationIssueForm(forms.Form):
     validation_hints = {'client_sap_id': HINTS['client']['client_sap_id'],
                         'date_of_issue': HINTS['order']['date_of_production'], }
 
-    client_sap_id = forms.CharField(widget=forms.TextInput(attrs=SAP_STYLE), label='Numer SAP klienta')
+    client_sap_id = forms.CharField(widget=forms.TextInput(attrs=CLIENT_SAP_STYLE), label='Numer SAP klienta')
     date_of_issue = forms.DateField(widget=DatePickerInput(options={'showClear': False, 'locale': 'pl', },
                                     attrs={**BASIC_STYLE, },
                                     format='%Y-%m-%d'), label='Data wystawienia specyfikacji')

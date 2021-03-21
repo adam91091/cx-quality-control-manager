@@ -14,7 +14,7 @@
             </div>
             <div class="col-sm-4 mb-2">
                 <label>Indeks produktu:</label>
-                <p class="form-control">{{ product.index }}</p>
+                <p class="form-control">{{ product.index|default_if_none:'' }}</p>
             </div>
             <div class="col-sm-4 mb-2">
                 <label>Opis produktu:</label>
@@ -84,11 +84,9 @@
                         <div class="row">
                         <div class="p-2 mx-2">+</div>
                             <div class="col-sm-4 mb-2">
-                                <p class="form-control mb-0">{{ product.specification.wall_thickness_tolerance_top }}</p>
                             </div>
                             <div class="p-2">-</div>
                             <div class="col-sm-4 mb-2">
-                                <p class="form-control mb-0">{{ product.specification.wall_thickness_tolerance_bottom }}</p>
                             </div>
                         </div>
                     </td>
@@ -120,7 +118,6 @@
                         <div class="row">
                         <div class="p-2 mx-2">+</div>
                             <div class="col-sm-4 mb-2">
-                                <p class="form-control mb-0">{{ product.specification.flat_crush_resistance_tolerance_top }}</p>
                             </div>
                             <div class="p-2">-</div>
                             <div class="col-sm-4 mb-2">

@@ -8,6 +8,4 @@ User = get_user_model()
 
 class CxUserTest(TestCase):
     def test_user_model_customization(self):
-        """Act: User model from get_user_model <> Exp: CxUser model
-        """
         self.assertEqual(User, CxUser)

@@ -6,8 +6,8 @@ from .factories import ClientFactory
 
 from apps.clients.forms import ClientForm
 from apps.clients.models import Client
-from apps.unittest_helpers import assert_response_get, assert_response_post
-from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE
+from apps.unittest_helpers import assert_response_get, assert_response_post, get_random_int_with_digit_count
+from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE, CLIENT_SAP_DIGITS
 from ...users.tests import PASSWORD
 from ...users.tests.factories import CxUserFactory
 
@@ -36,7 +36,7 @@ class ClientsViewTest(TestCase):
 
     def test_new_post(self):
         self.view_client.login(username=self.user.username, password=PASSWORD)
-        client_sap_id = 1234565
+        client_sap_id = get_random_int_with_digit_count(CLIENT_SAP_DIGITS)
         assert_response_post(test_case=self, url_name='clients:client-new', exp_status_code=302,
                              data={'client_sap_id': client_sap_id, 'client_name': 'New with Post'})
         self.assertTrue(Client.objects.get(client_sap_id=client_sap_id))

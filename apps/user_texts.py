@@ -1,3 +1,5 @@
+from apps.constants import CLIENT_SAP_DIGITS, PRODUCT_SAP_DIGITS, ORDER_SAP_DIGITS
+
 VIEW_MSG = {'client': {'new_success': "Utworzono nowego klienta",
                        'new_error': "Nie utworzono nowego klienta. "
                                     "Wystąpiły następujące błędy formularza:",
@@ -44,9 +46,12 @@ VIEW_MSG = {'client': {'new_success': "Utworzono nowego klienta",
                      }
             }
 
-HINTS = {'client': {'client_sap_id': "Numer SAP musi się składać z 7 cyfr oraz nie może być polem pustym",
+HINTS = {'client': {'client_sap_id': "Numer SAP musi się składać z {} cyfr "
+                                     "oraz nie może być polem pustym".format(CLIENT_SAP_DIGITS),
                     'client_name': "Pole z nazwą klienta nie może być puste", },
-         'product': {'product_sap_id': "Numer SAP musi się składać z 7 cyfr oraz nie może być polem pustym",
+         'product': {'product_sap_id': "Numer SAP musi się składać z {} cyfr "
+                                       "oraz nie może być polem pustym".format(PRODUCT_SAP_DIGITS),
+                     'index': "Indeks produktu powinien być w określonym formacie, np. T1034321/26",
                      'description': "Pole z opisem nie może być puste", },
          'specification': {'remarks': "Pole z uwagami nie może być puste",
                            'float_field': "Podaj liczbę, np. 1 lub 1.0",
@@ -55,9 +60,12 @@ HINTS = {'client': {'client_sap_id': "Numer SAP musi się składać z 7 cyfr ora
                            'finish': "Pole z powierzchnią zew. nie może być puste",
                            'maximum_height_of_pallet': "Podaj liczbę, np. 1 lub 1.0",
                            'quantity_on_the_pallet': "Podaj całkowitą liczbę sztuk tulei na palecie", },
-         'order': {'order_sap_id': "Numer partii musi się składać z 8 cyfr oraz nie może być polem pustym",
-                   'product': "Kod produktu musi się składać z 7 cyfr oraz nie może być polem pustym",
-                   'client': "Numer SAP klienta musi się składać z 7 cyfr oraz nie może być polem pustym",
+         'order': {'order_sap_id': "Numer partii musi się składać z {} cyfr "
+                                   "oraz nie może być polem pustym".format(ORDER_SAP_DIGITS),
+                   'client_sap_id': "Numer SAP musi się składać z {} cyfr "
+                                    "oraz nie może być polem pustym".format(CLIENT_SAP_DIGITS),
+                   'product_sap_id': "Numer SAP musi się składać z {} cyfr "
+                                     "oraz nie może być polem pustym".format(PRODUCT_SAP_DIGITS),
                    'date_of_production': 'Pole z datą produkcji nie może być puste',
                    'quantity': 'Podaj całkowitą liczbę tulei w sztukach',
                    },

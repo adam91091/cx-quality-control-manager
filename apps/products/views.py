@@ -146,6 +146,9 @@ class ProductDeleteView(SuccessMessageMixin, LoginRequiredMixin,
 
 
 class SpecificationPdfRenderView(SingleObjectMixin, View):
+    """Provide specification issued for the client as
+    a html embedded in PDF format.
+    """
     model = Product
 
     def dispatch(self, request, *args, **kwargs):
@@ -153,6 +156,7 @@ class SpecificationPdfRenderView(SingleObjectMixin, View):
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        """Put URL params into the response context data"""
         client_name = self.kwargs.get('client_name')
         issue_date = self.kwargs.get('date')
         context = super().get_context_data(**kwargs)
@@ -161,6 +165,7 @@ class SpecificationPdfRenderView(SingleObjectMixin, View):
         return context
 
     def get(self, request, *args, **kwargs):
+        """Get specification in embedded pdf format."""
         data = self.get_context_data()
         pdf = render_template_to_pdf('specification_to_pdf.html', data)
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -168,15 +173,18 @@ class SpecificationPdfRenderView(SingleObjectMixin, View):
 
 
 class SpecificationIssueView(SingleObjectMixin, FormView):
+    """Provide form for creation specification issued to the client."""
     model = Product
     form_class = SpecificationIssueForm
     template_name = 'specification_issue_form.html'
 
     def dispatch(self, request, *args, **kwargs):
+        """Provide reference of product specification."""
         self.object = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        """Check if client exists in database before submitting the form"""
         form = self.get_form()
         client_sap_id = form['client_sap_id'].value()
         client = Client.objects.filter(client_sap_id=client_sap_id)
@@ -186,6 +194,13 @@ class SpecificationIssueView(SingleObjectMixin, FormView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
+        """Create issued specification in database for the client.
+        Such client issued specification is a snapshot from product specification.
+        1. Get user data from submitted form
+        2. Get product specification data
+        3. Create new issued specification object and fulfill it with form
+        data and product specification data
+        """
         date_of_issue = form['date_of_issue'].value()
         client_sap_id = form['client_sap_id'].value()
 

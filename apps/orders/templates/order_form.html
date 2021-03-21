@@ -27,7 +27,7 @@
                     {{ form.client.label_tag }}
                     {{ form.client }}
                     <div class="invalid-feedback">
-                        {{ form.validation_hints|get_item:'client' }}
+                        {{ form.validation_hints|get_item:'client_sap_id' }}
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     {{ form.product.label_tag }}
                     {{ form.product }}
                     <div class="invalid-feedback">
-                        {{ form.validation_hints|get_item:'product' }}
+                        {{ form.validation_hints|get_item:'product_sap_id' }}
                     </div>
                 </div>
                 <div class="col-sm-4 mb-2">
@@ -44,30 +44,13 @@
                     {{ form.date_of_production }}
                 </div>
             </div>
-            <br>
-            <h5>Dane techniczne</h5>
-            <br>
             <div class="row">
-                <div class="col-sm-4 mb-2">
-                    {{ form.length.label_tag }}
-                    {{ form.length }}
-                </div>
                 <div class="col-sm-4 mb-2">
                     {{ form.quantity.label_tag }}
                     {{ form.quantity }}
                     <div class="invalid-feedback">
                         {{ form.validation_hints|get_item:'quantity' }}
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 mb-2">
-                    {{ form.internal_diameter_reference.label_tag }}
-                    {{ form.internal_diameter_reference }}
-                </div>
-                <div class="col-sm-4 mb-2">
-                    {{ form.external_diameter_reference.label_tag }}
-                    {{ form.external_diameter_reference }}
                 </div>
             </div>
             <span>

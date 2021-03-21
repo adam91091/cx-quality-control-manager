@@ -92,8 +92,6 @@
                     <th>Grubość ścianki:</th>
                     <td><p>{{ product.specification.wall_thickness_target }} mm</p></td>
                     <td>
-                        <p> + {{ product.specification.wall_thickness_tolerance_top }} mm /
-                            - {{ product.specification.wall_thickness_tolerance_bottom }} mm</p>
                     </td>
                 </tr>
                 <tr>
@@ -108,8 +106,7 @@
                     <th>Wytrzymałość na ściskanie (100 MM):</th>
                     <td><p>{{ product.specification.flat_crush_resistance_target }} mm</p></td>
                     <td>
-                        <p> + {{ product.specification.flat_crush_resistance_tolerance_top }} % /
-                            - {{ product.specification.flat_crush_resistance_tolerance_bottom }} % </p>
+                        <p>- {{ product.specification.flat_crush_resistance_tolerance_bottom }} % </p>
                     </td>
                 </tr>
                 <tr>

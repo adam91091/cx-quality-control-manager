@@ -4,7 +4,7 @@ from django.db import models
 
 from apps.clients.models import Client
 from apps.user_texts import MODEL_MSG
-from apps.validators import validate_sap_id, validate_num_field, validate_int_field
+from apps.validators import validate_product_sap_id, validate_num_field, validate_int_field, validate_index
 
 
 class Product(models.Model):
@@ -12,8 +12,8 @@ class Product(models.Model):
     but contains only necessary data for quality control process. Extends product by
     specification data, related to quality control process.
     """
-    product_sap_id = models.IntegerField(unique=True, validators=[validate_sap_id(), ])
-    index = models.CharField(max_length=30, null=True, blank=True)
+    product_sap_id = models.IntegerField(unique=True, validators=[validate_product_sap_id(), ])
+    index = models.CharField(max_length=30, null=True, blank=True, validators=[validate_index(), ])
     description = models.CharField(max_length=100)
 
     def __str__(self):
@@ -39,15 +39,12 @@ class Specification(models.Model):
     external_diameter_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     wall_thickness_target = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     length_target = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     flat_crush_resistance_target = models.IntegerField(validators=[validate_int_field(), ])
-    flat_crush_resistance_tolerance_top = models.IntegerField(validators=[validate_int_field(), ])
     flat_crush_resistance_tolerance_bottom = models.IntegerField(validators=[validate_int_field(), ])
 
     moisture_content_target = models.IntegerField(validators=[validate_int_field(), ])
@@ -90,15 +87,12 @@ class SpecificationIssued(models.Model):
     external_diameter_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     wall_thickness_target = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
-    wall_thickness_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     length_target = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_top = models.FloatField(validators=[validate_num_field(), ])
     length_tolerance_bottom = models.FloatField(validators=[validate_num_field(), ])
 
     flat_crush_resistance_target = models.IntegerField(validators=[validate_int_field(), ])
-    flat_crush_resistance_tolerance_top = models.IntegerField(validators=[validate_int_field(), ])
     flat_crush_resistance_tolerance_bottom = models.IntegerField(validators=[validate_int_field(), ])
 
     moisture_content_target = models.IntegerField(validators=[validate_int_field(), ])

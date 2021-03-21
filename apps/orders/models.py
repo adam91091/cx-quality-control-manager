@@ -22,10 +22,6 @@ class Order(models.Model):
     date_of_production = models.DateField(default=datetime.date.today)
     status = models.CharField(choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0], max_length=30)
     quantity = models.IntegerField(validators=[validate_int_field(), ], null=True, blank=True)
-    # tube sizing information
-    internal_diameter_reference = models.FloatField(validators=[validate_num_field(), ], null=True, blank=True)
-    external_diameter_reference = models.FloatField(validators=[validate_num_field(), ], null=True, blank=True)
-    length = models.FloatField(validators=[validate_num_field(), ], null=True, blank=True)
 
     def __str__(self):
         return f"Production order: {self.order_sap_id} " \
@@ -42,7 +38,10 @@ class Order(models.Model):
         dates = {'min': Order.objects.aggregate(Min('date_of_production'))['date_of_production__min'],
                  'max': Order.objects.aggregate(Max('date_of_production'))['date_of_production__max'],
                  'today': datetime.date.today()}
-        return dates.get(value).strftime(STRFTIME_DATE)
+        date = dates.get(value)
+        if date is None:
+            date = datetime.date.today()
+        return date.strftime(STRFTIME_DATE)
 
 
 class MeasurementReport(models.Model):

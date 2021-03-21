@@ -1,3 +1,5 @@
+import random
+
 from django.urls import reverse
 
 
@@ -19,3 +21,8 @@ def assert_response_post(test_case, url_name, exp_status_code, data, id=None):
         response = test_case.view_client.post(reverse(url_name), data=data)
     test_case.assertEqual(response.status_code, exp_status_code)
     return response
+
+
+def get_random_int_with_digit_count(digit_count):
+    random_int = random.randrange(10 ** (digit_count - 1), 10 ** digit_count - 1)
+    return random_int
