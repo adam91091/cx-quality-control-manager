@@ -9,7 +9,7 @@ function copyMeasurementForm(e) {
     for (let i=0; i<array.length; i++) {
         if(array[i].tagName === 'DIV') {
             let name = array[i].children[0].name.split('-')[2]
-            let newId = Number(array[i].children[0].name.split('-')[1]) + 1
+            var newId = Number(array[i].children[0].name.split('-')[1]) + 1
             let stringResult = `measurements-${newId}-${name}`;
             array[i].children[0]['id'] = `id_${stringResult}`;
             array[i].children[0]['name'] = stringResult;
@@ -20,6 +20,9 @@ function copyMeasurementForm(e) {
     formset.appendChild(newForm);
     // update management formset django
     updateManagementForm('add');
+    // set focus on pallet number of added column
+    var button = document.getElementById(`id_measurements-${newId}-pallet_number`);
+    button.focus()
 
 }
 
