@@ -58,11 +58,11 @@
             <table class="spec-table">
                 <tr>
                     <th>Odbiorca:</th>
-                    <td colspan="6">{{ client_name }}</td>
+                    <td colspan="6">{{ specification_issued.client.client_name }}</td>
                 </tr>
                 <tr>
                     <th>Data:</th>
-                    <td colspan="6">{{ date }}</td>
+                    <td colspan="6">{{ specification_issued.date_of_issue }}</td>
                 </tr>
             </table>
             <br>
@@ -74,68 +74,68 @@
                 </tr>
                 <tr>
                     <th>Średnica wewnętrzna:</th>
-                    <td><p>{{ product.specification.internal_diameter_target }} mm</p></td>
+                    <td><p>{{ specification_issued.internal_diameter_target }} mm</p></td>
                     <td>
-                        <p> + {{ product.specification.internal_diameter_tolerance_top }} mm /
-                            - {{ product.specification.internal_diameter_tolerance_bottom }} mm</p>
+                        <p> + {{ specification_issued.internal_diameter_tolerance_top }} mm /
+                            - {{ specification_issued.internal_diameter_tolerance_bottom }} mm</p>
                     </td>
                 </tr>
                 <tr>
                     <th>Średnica zewnętrzna:</th>
-                    <td><p>{{ product.specification.external_diameter_target }} mm</p></td>
+                    <td><p>{{ specification_issued.external_diameter_target }} mm</p></td>
                     <td>
-                        <p> + {{ product.specification.external_diameter_tolerance_top }} mm /
-                            - {{ product.specification.external_diameter_tolerance_bottom }} mm</p>
+                        <p> + {{ specification_issued.external_diameter_tolerance_top }} mm /
+                            - {{ specification_issued.external_diameter_tolerance_bottom }} mm</p>
                     </td>
                 </tr>
                 <tr>
                     <th>Grubość ścianki:</th>
-                    <td><p>{{ product.specification.wall_thickness_target }} mm</p></td>
+                    <td><p>{{ specification_issued.wall_thickness_target }} mm</p></td>
                     <td>
                     </td>
                 </tr>
                 <tr>
                     <th>Długość:</th>
-                    <td><p>{{ product.specification.length_target }} mm</p></td>
+                    <td><p>{{ specification_issued.length_target }} mm</p></td>
                     <td>
-                        <p> + {{ product.specification.length_tolerance_top }} mm /
-                            - {{ product.specification.length_tolerance_bottom }} mm</p>
+                        <p> + {{ specification_issued.length_tolerance_top }} mm /
+                            - {{ specification_issued.length_tolerance_bottom }} mm</p>
                     </td>
                 </tr>
                 <tr>
                     <th>Wytrzymałość na ściskanie (100 MM):</th>
-                    <td><p>{{ product.specification.flat_crush_resistance_target }} mm</p></td>
+                    <td><p>{{ specification_issued.flat_crush_resistance_target }} mm</p></td>
                     <td>
-                        <p>- {{ product.specification.flat_crush_resistance_tolerance_bottom }} % </p>
+                        <p>- {{ specification_issued.flat_crush_resistance_tolerance_bottom }} % </p>
                     </td>
                 </tr>
                 <tr>
                     <th>Wilgotność:</th>
-                    <td><p>{{ product.specification.moisture_content_target }} mm</p></td>
+                    <td><p>{{ specification_issued.moisture_content_target }} mm</p></td>
                     <td>
-                        <p> + {{ product.specification.moisture_content_tolerance_top }} % /
-                            - {{ product.specification.moisture_content_tolerance_bottom }} % </p>
+                        <p> + {{ specification_issued.moisture_content_tolerance_top }} % /
+                            - {{ specification_issued.moisture_content_tolerance_bottom }} % </p>
                     </td>
                 </tr>
                 <tr>
                     <th>Kolor:</th>
-                    <td colspan="2"><p>{{ product.specification.colour }}</p></td>
+                    <td colspan="2"><p>{{ specification_issued.colour }}</p></td>
                 </tr>
                 <tr>
                     <th>Powierzchnia:</th>
-                    <td colspan="2"><p>{{ product.specification.finish }}</p></td>
+                    <td colspan="2"><p>{{ specification_issued.finish }}</p></td>
                 </tr>
             </table>
             <br>
             <h3 class="label-textarea">Specyfikacja opakowania</h3>
             <div class="spec-textarea">
-                <span>Maksymalna wysokość palety: {{ product.specification.maximum_height_of_pallet }} mm</span><br>
-                <span>Ilość sztuk na palecie: {{ product.specification.quantity_on_the_pallet }} szt.</span><br>
+                <span>Maksymalna wysokość palety: {{ specification_issued.maximum_height_of_pallet }} mm</span><br>
+                <span>Ilość sztuk na palecie: {{ specification_issued.quantity_on_the_pallet }} szt.</span><br>
                 <span>Narożniki palety zostały zabezpieczone kątownikami tekturowymi?
-                    {{ product.specification.get_pallet_protected_with_paper_edges_display }}</span><br>
+                    {{ specification_issued.get_pallet_protected_with_paper_edges_display }}</span><br>
                 <span>Paleta zabezpieczona folią stretch?
-                    {{ product.specification.get_pallet_wrapped_with_stretch_film_display }}</span><br>
-                <span>Gilzy pakowane: {{ product.specification.get_cores_packed_in_display }}</span>
+                    {{ specification_issued.get_pallet_wrapped_with_stretch_film_display }}</span><br>
+                <span>Gilzy pakowane: {{ specification_issued.get_cores_packed_in_display }}</span>
             </div>
             <br>
             <h3 class="label-textarea">Uwagi</h3>
@@ -156,7 +156,7 @@
                     <td>.......................................................</td>
                 </tr>
                 <tr>
-                    <td>Firma Polska Sp. z o.o.</td>
+                    <td>***** Polska Sp. z o.o.</td>
                     <td>&nbsp</td>
                     <td>Odbiorca</td>
                 </tr>

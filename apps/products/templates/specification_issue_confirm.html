@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="card m-2 p-2 rounded" >
+    <div class="header p-2 grey lighten-2">
+        <h3 class="m-2">Specyfikacja została wystawiona</h3>
+    <hr class="border border-default">
+        <p class="m-2">Po wystawieniu specyfikacji powinno nastąpić samoczynne przekierowanie do nowej karty przeglądarki z widokiem
+            specyfikacji.</p>
+        <p class="m-2">Jeśli nie nastąpiło przekierowanie, kliknij w poniższy link:</p>
+    </div>
+     <span>
+            <a href="{% url 'products:product-detail' specification_issued.product.id %}" class="ml-2 mt-3 btn btn-primary">Wstecz</a>
+                <a href="{% url 'products:specification-pdf-render' specification_issued.id %}"
+                class="ml-2 mt-3 btn btn-danger" target="_blank">
+                Zobacz specyfikację w formacie PDF</a>
+        </span>
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        let url = "{% url 'products:specification-pdf-render' specification_issued.id %}"
+        const tab = window.open(url, '_blank');
+    };
+</script>
+
+{% endblock %}
