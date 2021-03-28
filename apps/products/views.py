@@ -216,6 +216,7 @@ class SpecificationIssueFormView(SingleObjectMixin, FormView):
 
 
 class SpecificationIssueConfirmView(SingleObjectMixin, TemplateView):
+    """Provide template with confirmation of specification issued was created successfully"""
     model = SpecificationIssued
     template_name = "specification_issue_confirm.html"
     context_object_name = 'specification_issued'

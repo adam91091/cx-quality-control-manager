@@ -2,9 +2,10 @@ from math import ceil
 
 from django.test import TestCase, Client as ViewClient
 
-from apps.products.forms import ProductSpecificationMultiForm
-from apps.products.models import Product, Specification
-from apps.products.tests.factories import ProductFactory, SpecificationFactory
+from apps.clients.tests.factories import ClientFactory
+from apps.products.forms import ProductSpecificationMultiForm, SpecificationIssueForm
+from apps.products.models import Product, Specification, SpecificationIssued
+from apps.products.tests.factories import ProductFactory, SpecificationFactory, SpecificationIssuedFactory
 from apps.constants import PAGINATION_OBJ_COUNT_PER_PAGE, PRODUCT_SAP_DIGITS
 from apps.unittest_helpers import assert_response_post, assert_response_get, get_random_int_with_digit_count
 from apps.users.tests import PASSWORD
@@ -76,3 +77,41 @@ class ProductsViewTest(TestCase):
         assert_response_post(test_case=self, url_name='products:product-update', exp_status_code=302,
                              data=self.form_data, id=self.product_to_be_updated.id)
         self.assertEqual(Product.objects.get(id=self.product_to_be_updated.id).description, updated_product_desc)
+
+
+class SpecificationIssuedViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.view_client = ViewClient()
+        cls.product = ProductFactory.create()
+        cls.client = ClientFactory.create()
+        cls.client_post_form = ClientFactory.create()
+        cls.specification = SpecificationFactory.create(product=cls.product)
+
+        cls.specification_issued = SpecificationIssuedFactory.create(product=cls.product, client=cls.client)
+        cls.form_data = {'client_sap_id': cls.client_post_form.client_sap_id,
+                         'date_of_issue': cls.specification_issued.date_of_issue}
+
+        cls.user = CxUserFactory.create()
+
+    def test_form_get(self):
+        self.view_client.login(username=self.user.username, password=PASSWORD)
+        response = assert_response_get(test_case=self, url_name='products:specification-issue', exp_status_code=200,
+                                       exp_template='specification_issue_form.html',
+                                       id=self.product.id)
+        self.assertTrue(isinstance(response.context['form'], SpecificationIssueForm))
+
+    def test_form_post(self):
+        self.view_client.login(username=self.user.username, password=PASSWORD)
+        assert_response_post(test_case=self, url_name='products:specification-issue',
+                             exp_status_code=302, data=self.form_data, id=self.product.id)
+        self.assertTrue(SpecificationIssued.objects.get(client=self.client_post_form))
+        self.assertEqual(SpecificationIssued.objects.get(client=self.client_post_form).product, self.product)
+
+    def test_pdf_render_view(self):
+        self.view_client.login(username=self.user.username, password=PASSWORD)
+        response = assert_response_get(test_case=self, url_name='products:specification-pdf-render',
+                                       exp_status_code=200,
+                                       exp_template='specification_to_pdf.html',
+                                       id=self.specification_issued.id)
+        self.assertTrue(isinstance(response.context['specification_issued'], SpecificationIssued))
