@@ -46,6 +46,7 @@
                 Status:</a>
             <select class="form-control mt-2" aria-label="Search" style="width: 100%;" id="id_status" name="status">
                 <option value="" {% if request.session.status == '' %} selected {% endif %}>Wszystkie</option>
+                <option value="Started or Open" {% if request.session.status == 'Started or Open' %} selected {% endif %}>Otwarte/W trakcie</option>
                 <option value="Started" {% if request.session.status == 'Started' %} selected {% endif %}>Otwarte</option>
                 <option value="Open" {% if request.session.status == 'Open' %} selected {% endif %}>W trakcie</option>
                 <option value="Done" {% if request.session.status == 'Done' %} selected {% endif %}>Zakończone</option>
