@@ -8,6 +8,7 @@ from django.forms import BaseForm
 from django.http import QueryDict, HttpRequest
 
 from apps.clients.filters import ClientFilter
+from apps.constants import ORDER_STATUS_OPEN_STARTED
 from apps.orders.filters import OrderFilter
 from apps.orders.models import Order
 from apps.products.filters import ProductFilter
@@ -49,8 +50,11 @@ def update_filter_params(params: "QueryDict", session: "SessionBase",
         for field_name in filter_class.get_fields():
             session[field_name] = ''
         if filter_class == OrderFilter:
-            session['date_of_production_after'] = Order.get_date_of_production('today')
-            session['date_of_production_before'] = Order.get_date_of_production('max')
+            today = Order.get_date_of_production('today')
+            session['date_of_production_after'] = today
+            session['date_of_production_before'] = today
+            session['date_enabled'] = 'Off'
+            session['status'] = ORDER_STATUS_OPEN_STARTED
     return session
 
 
