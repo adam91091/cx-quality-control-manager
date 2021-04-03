@@ -48,7 +48,7 @@
                     {{ spec.product.description }}
                 </td>
                 <td class="col-sm-1">
-                <a href="{% url 'products:specification-pdf-render' spec.product.id spec.date_of_issue client.client_name %}">
+                <a href="{% url 'products:specification-pdf-render' spec.id %}">
                 Widok PDF</a>
                 </td>
             {% endfor %}

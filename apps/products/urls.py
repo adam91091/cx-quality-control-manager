@@ -9,7 +9,9 @@ urlpatterns = [
     path('detail/<int:pk>', views.ProductDetailView.as_view(), name='product-detail'),
     path('update/<int:pk>', views.ProductUpdateView.as_view(), name='product-update'),
     path('delete/<int:pk>', views.ProductDeleteView.as_view(), name='product-delete'),
-    path('specification-issue/<int:pk>', views.SpecificationIssueView.as_view(), name='specification-issue'),
-    path('specification-pdf-render/<int:pk>/<str:date>/<str:client_name>', views.SpecificationPdfRenderView.as_view(),
+    path('specification-issue/<int:pk>', views.SpecificationIssueFormView.as_view(), name='specification-issue'),
+    path('specification-issue-confirm/<int:pk>',
+         views.SpecificationIssueConfirmView.as_view(), name='specification-issue-confirm'),
+    path('specification-pdf-render/<int:pk>', views.SpecificationPdfRenderView.as_view(),
          name='specification-pdf-render'),
 ]

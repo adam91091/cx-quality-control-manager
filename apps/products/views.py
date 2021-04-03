@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView, DetailView, DeleteView, ListView, FormView
-from django.views.generic.base import View
+from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
 from apps.clients.models import Client
@@ -149,20 +149,12 @@ class SpecificationPdfRenderView(SingleObjectMixin, View):
     """Provide specification issued for the client as
     a html embedded in PDF format.
     """
-    model = Product
+    model = SpecificationIssued
+    context_object_name = 'specification_issued'
 
     def dispatch(self, request, *args, **kwargs):
         self.object = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
         return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        """Put URL params into the response context data"""
-        client_name = self.kwargs.get('client_name')
-        issue_date = self.kwargs.get('date')
-        context = super().get_context_data(**kwargs)
-        context['client_name'] = client_name
-        context['date'] = issue_date
-        return context
 
     def get(self, request, *args, **kwargs):
         """Get specification in embedded pdf format."""
@@ -172,7 +164,7 @@ class SpecificationPdfRenderView(SingleObjectMixin, View):
         return response
 
 
-class SpecificationIssueView(SingleObjectMixin, FormView):
+class SpecificationIssueFormView(SingleObjectMixin, FormView):
     """Provide form for creation specification issued to the client."""
     model = Product
     form_class = SpecificationIssueForm
@@ -214,12 +206,21 @@ class SpecificationIssueView(SingleObjectMixin, FormView):
 
         specification_ss.save()
 
-        return HttpResponseRedirect(reverse_lazy('products:specification-pdf-render',
-                                                 kwargs={'pk': self.object.pk,
-                                                         'date': date_of_issue,
-                                                         'client_name': client.client_name}))
+        return HttpResponseRedirect(reverse_lazy('products:specification-issue-confirm',
+                                                 kwargs={'pk': specification_ss.id, }))
 
     def form_invalid(self, form):
         add_error_messages(request=self.request, forms=[form, ],
                            base_msg=VIEW_MSG['specification']['issue_error'])
         return super().form_invalid(form)
+
+
+class SpecificationIssueConfirmView(SingleObjectMixin, TemplateView):
+    """Provide template with confirmation of specification issued was created successfully"""
+    model = SpecificationIssued
+    template_name = "specification_issue_confirm.html"
+    context_object_name = 'specification_issued'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        return super().dispatch(request, *args, **kwargs)

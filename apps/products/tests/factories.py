@@ -1,7 +1,8 @@
 import factory
 
+from apps.clients.tests.factories import ClientFactory
 from apps.constants import PRODUCT_SAP_DIGITS, FLOAT_DEFAULT, INT_DEFAULT
-from apps.products.models import Product, Specification
+from apps.products.models import Product, Specification, SpecificationIssued
 
 
 class ProductFactory(factory.DjangoModelFactory):
@@ -18,6 +19,46 @@ class SpecificationFactory(factory.DjangoModelFactory):
         model = Specification
 
     product = factory.SubFactory(ProductFactory)
+    internal_diameter_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    internal_diameter_tolerance_top = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    internal_diameter_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+
+    external_diameter_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    external_diameter_tolerance_top = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    external_diameter_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+
+    wall_thickness_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+
+    length_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    length_tolerance_top = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    length_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+
+    flat_crush_resistance_target = factory.Sequence(lambda n: INT_DEFAULT + n)
+    flat_crush_resistance_tolerance_bottom = factory.Sequence(lambda n: INT_DEFAULT + n)
+
+    moisture_content_target = factory.Sequence(lambda n: INT_DEFAULT + n)
+    moisture_content_tolerance_top = factory.Sequence(lambda n: INT_DEFAULT + n)
+    moisture_content_tolerance_bottom = factory.Sequence(lambda n: INT_DEFAULT + n)
+
+    colour = factory.Sequence(lambda n: f"test_colour_{n}")
+    finish = factory.Sequence(lambda n: f"test_finish_{n}")
+
+    maximum_height_of_pallet = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
+    quantity_on_the_pallet = factory.Sequence(lambda n: INT_DEFAULT + n)
+    pallet_protected_with_paper_edges = 'Y'
+    pallet_wrapped_with_stretch_film = 'N'
+    cores_packed_in = 'Vertical'
+    remarks = factory.Sequence(lambda n: f"test_remarks_{n}")
+
+
+class SpecificationIssuedFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = SpecificationIssued
+
+    product = factory.SubFactory(ProductFactory)
+    client = factory.SubFactory(ClientFactory)
+    date_of_issue = "4098-12-12"
+
     internal_diameter_target = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
     internal_diameter_tolerance_top = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
     internal_diameter_tolerance_bottom = factory.Sequence(lambda n: FLOAT_DEFAULT + n)
