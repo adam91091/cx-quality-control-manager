@@ -1,9 +1,8 @@
 import django_filters
 from django.db.models import Q
 
+from apps.constants import ORDER_STATUS_OPEN_STARTED
 from apps.orders.models import Order
-
-ORDER_STATUS_OPEN_STARTED = 'Started or Open'
 
 
 class StatusChoiceFilter(django_filters.ChoiceFilter):
@@ -24,11 +23,11 @@ class StatusChoiceFilter(django_filters.ChoiceFilter):
         if value == ORDER_STATUS_OPEN_STARTED:
             _qs = qs.filter(Q(status__iexact='Started') | Q(status__iexact='Open'))
             return _qs
-        else:
-            return super().filter(qs, value)
+        return super().filter(qs, value)
 
 
 class OrderFilter(django_filters.FilterSet):
+
     client_name = django_filters.CharFilter(field_name='client__client_name', lookup_expr='icontains')
     order_sap_id = django_filters.CharFilter(lookup_expr='icontains')
     product_sap_id = django_filters.CharFilter(field_name='product__product_sap_id', lookup_expr='icontains')

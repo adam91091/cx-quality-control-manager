@@ -24,8 +24,10 @@
             <input class="form-control mt-2 mb-2" id="id_product_sap_id" name="product_sap_id" type="text" value="{{ request.session.product_sap_id }}" aria-label="Search" style="width: 100%; display: block;">
         </th>
         <th class="col-2">
-            <a class="link mt-2 mb-2" href="{% url 'orders:orders-list' %}?ordering=date_of_production" style="width: 40%;">
+            <a class="link mt-2 mb-2" href="{% url 'orders:orders-list' %}?ordering=date_of_production" style="width: 40%">
                 Data produkcji:</a>
+            <label for="dateCheck">On/Off</label>
+            <input type="checkbox" id="dateCheck" name="date_enabled" value="On" {% if request.session.date_enabled == 'On' %} checked {% endif %}>
                 {{ date_filtering_form.media }}
             <div class="form-group form-inline mt-2 mb-1">
                 {{ date_filtering_form.date_of_production_after.label_tag }}
@@ -105,7 +107,7 @@
     </tr>
     {% endfor %}
 </table>
-{% if page_obj.paginator.num_pages > 1 %}
+    {% if page_obj.paginator.num_pages > 1 %}
     {% include '_pagination.html' %}
 {% endif %}
 {% endblock %}

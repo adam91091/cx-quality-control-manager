@@ -25,11 +25,15 @@ class OrderListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         """Update session for request GET parameters.
         Filter & sort orders by parameters values stored in session.
+        Remove date of production filter if it's disabled by the user.
         """
         self.request.session = update_filter_params(params=self.request.GET,
                                                     session=self.request.session,
                                                     filter_class=OrderFilter)
         order_filter = OrderFilter(self.request.session, queryset=self.model.objects.all())
+
+        if self.request.session.get('date_enabled', 'Off') == 'Off':
+            order_filter.filters.pop('date_of_production')
         qs = order_filter.qs.order_by(self.get_ordering())
         return qs
 
